@@ -1,0 +1,233 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\u001b[33mWARNING: The directory '/home/jovyan/.cache/pip/http' or its parent directory is not owned by the current user and the cache has been disabled. Please check the permissions and owner of that directory. If executing pip with sudo, you may want sudo's -H flag.\u001b[0m\n",
+      "\u001b[33mWARNING: The directory '/home/jovyan/.cache/pip' or its parent directory is not owned by the current user and caching wheels has been disabled. check the permissions and owner of that directory. If executing pip with sudo, you may want sudo's -H flag.\u001b[0m\n",
+      "Collecting bubbly\n",
+      "  Downloading https://files.pythonhosted.org/packages/d1/ba/78a1262f6e96c92ac5b290c5654bc4cf6b8016d0d97c604576899f571cf0/bubbly-1.0.2.tar.gz\n",
+      "Collecting plotly (from bubbly)\n",
+      "\u001b[?25l  Downloading https://files.pythonhosted.org/packages/79/92/f8282ed209c2e7d4077c5f236bc241d42fb9a2b2986330188909a60be7bb/plotly-5.8.0-py2.py3-none-any.whl (15.2MB)\n",
+      "\u001b[K     |████████████████████████████████| 15.2MB 24.5MB/s eta 0:00:01\n",
+      "\u001b[?25hRequirement already satisfied: pandas in /opt/conda/lib/python3.7/site-packages (from bubbly) (0.25.0)\n",
+      "Collecting tenacity>=6.2.0 (from plotly->bubbly)\n",
+      "  Downloading https://files.pythonhosted.org/packages/f2/a5/f86bc8d67c979020438c8559cc70cfe3a1643fd160d35e09c9cca6a09189/tenacity-8.0.1-py3-none-any.whl\n",
+      "Requirement already satisfied: numpy>=1.13.3 in /opt/conda/lib/python3.7/site-packages (from pandas->bubbly) (1.17.0)\n",
+      "Requirement already satisfied: python-dateutil>=2.6.1 in /opt/conda/lib/python3.7/site-packages (from pandas->bubbly) (2.8.0)\n",
+      "Requirement already satisfied: pytz>=2017.2 in /opt/conda/lib/python3.7/site-packages (from pandas->bubbly) (2019.2)\n",
+      "Requirement already satisfied: six>=1.5 in /opt/conda/lib/python3.7/site-packages (from python-dateutil>=2.6.1->pandas->bubbly) (1.12.0)\n",
+      "Building wheels for collected packages: bubbly\n",
+      "\u001b[33m  WARNING: Building wheel for bubbly failed: [Errno 13] Permission denied: '/home/jovyan/.cache/pip/wheels/cf'\u001b[0m\n",
+      "Failed to build bubbly\n",
+      "Installing collected packages: tenacity, plotly, bubbly\n",
+      "  Running setup.py install for bubbly ... \u001b[?25ldone\n",
+      "\u001b[?25hSuccessfully installed bubbly-1.0.2 plotly-5.8.0 tenacity-8.0.1\n",
+      "Note: you may need to restart the kernel to use updated packages.\n"
+     ]
+    }
+   ],
+   "source": [
+    "pip install bubbly"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import matplotlib.pyplot as plt\n",
+    "import pandas as pd\n",
+    "import numpy as np\n",
+    "df = pd.read_excel('city_temperature.xls')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Index(['Region', 'Country', 'Year', 'AvgTemperature'], dtype='object')"
+      ]
+     },
+     "execution_count": 3,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.columns"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "Year = list(range(1995, 2013))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/png": "iVBORw0KGgoAAAANSUhEUgAAA0wAAAHoCAYAAAB6j29mAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAADh0RVh0U29mdHdhcmUAbWF0cGxvdGxpYiB2ZXJzaW9uMy4xLjEsIGh0dHA6Ly9tYXRwbG90bGliLm9yZy8QZhcZAAAckElEQVR4nO3de/Dld13f8dfbXaiAQIAEhFxKSgMhrUTJJlCRAaSUJG3d2uoM0ZLCOLOmEkRHW2KlYsVRFBkRCYQUM8hoSaeKkjgLAXQQLWaa5WJCoNCdRJI1YBLucgubvPvHOWFOfvw+2e9ufr/zu+zjMXNmf9/LnvPeme/sznO/l1PdHQAAAL7Vt230AAAAAJuVYAIAABgQTAAAAAOCCQAAYEAwAQAADAgmAACAgaUFU1VdVlW3VtVHBturql5bVfur6tqqevKyZgMAAFjNMs8wvTnJ2fey/Zwkp8xfe5K8YQkzAQAADC0tmLr7fUk+ey+77E7ylp65OskxVfXo5UwHAADwrTbTPUzHJ7l5YfnAfB0AAMCG2LnRAyyoVdb1qjtW7cnssr086EEPOuPUU09dz7kAAIAt7AMf+MDt3X3ckfzezRRMB5KcuLB8QpJbVtuxuy9NcmmS7Nq1q/ft27f+0wEAAFtSVX3ySH/vZrok74ok58+flvfUJF/o7k9t9FAAAMDRa2lnmKrqrUmemeTYqjqQ5OVJ7pck3X1Jkr1Jzk2yP8lXkrxwWbMBAACsZmnB1N3nHWJ7J3nRksYBAAA4pM10SR4AAMCmIpgAAAAGBBMAAMCAYAIAABgQTAAAAAOCCQAAYEAwAQAADAgmAACAAcEEAAAwIJgAAAAGBBMAAMCAYAIAABgQTAAAAAOCCQAAYEAwAQAADAgmAACAAcEEAAAwIJgAAAAGBBMAAMCAYAIAABgQTAAAAAOCCQAAYEAwAQAADAgmAACAAcEEAAAwIJgAAAAGBBMAAMCAYAIAABgQTAAAAAOCCQAAYEAwAQAADAgmAACAAcEEAAAwIJgAAAAGBBMAAMCAYAIAABgQTAAAAAOCCQAAYEAwAQAADAgmAACAAcEEAAAwIJgAAAAGBBMAAMCAYAIAABgQTAAAAAOCCQAAYEAwAQAADAgmAACAAcEEAAAwIJgAAAAGBBMAAMCAYAIAABgQTAAAAAOCCQAAYEAwAQAADAgmAACAAcEEAAAwIJgAAAAGBBMAAMCAYAIAABgQTAAAAAOCCQAAYEAwAQAADAgmAACAAcEEAAAwIJgAAAAGBBMAAMCAYAIAABgQTAAAAAOCCQAAYEAwAQAADAgmAACAAcEEAAAwIJgAAAAGBBMAAMCAYAIAABgQTAAAAAOCCQAAYGCpwVRVZ1fVx6tqf1VdtMr2h1bVlVX111V1fVW9cJnzAQAALFpaMFXVjiQXJzknyWlJzquq01bs9qIkH+3u05M8M8mrq+r+y5oRAABg0TLPMJ2VZH9339DddyS5PMnuFft0kgdXVSX5jiSfTXJwiTMCAAB80zKD6fgkNy8sH5ivW/S6JE9MckuS65K8pLvvWs54AAAA97TMYKpV1vWK5ecm+XCSxyT57iSvq6qHfMsbVe2pqn1Vte+2225b+0kBAACy3GA6kOTEheUTMjuTtOiFSd7WM/uT3Jjk1JVv1N2Xdveu7t513HHHrdvAAADA0W2ZwXRNklOq6uT5gxyel+SKFfvclOTZSVJVj0ryhCQ3LHFGAACAb9q5rA/q7oNVdWGSq5LsSHJZd19fVRfMt1+S5BVJ3lxV12V2Cd9Lu/v2Zc0IAACwaGnBlCTdvTfJ3hXrLln4+ZYk/2KZMwEAAIws9YtrAQAAthLBBAAAMCCYAAAABgQTAADAgGACAAAYEEwAAAADggkAAGBAMAEAAAwIJgAAgAHBBAAAMCCYAAAABgQTAADAgGACAAAYEEwAAAADggkAAGBAMAEAAAwIJgAAgAHBBAAAMCCYAAAABgQTAADAgGACAAAYEEwAAAADggkAAGBAMAEAAAwIJgAAgAHBBAAAMCCYAAAABgQTAADAgGACAAAYEEwAAAADggkAAGBAMAEAAAwIJgAAgAHBBAAAMCCYAAAABgQTAADAgGACAAAYEEwAAAADggkAAGBAMAEAAAwIJgAAgAHBBAAAMCCYAAAABgQTAADAgGACAAAYEEwAAAADggkAAGBAMAEAAAwIJgAAgAHBBAAAMCCYAAAABgQTAADAgGACAAAYEEwAAAADggkAAGBAMAEAAAwIJgAAgAHBBAAAMCCYAAAABgQTAADAgGACAAAYEEwAAAADggkAAGBAMAEAAAwIJgAAgAHBBAAAMCCYAAAABgQTAADAgGACAAAYEEwAAAADggkAAGBAMAEAAAwIJgAAgAHBBAAAMCCYAAAABgQTAADAgGACAAAYEEwAAAADSw2mqjq7qj5eVfur6qLBPs+sqg9X1fVV9efLnA8AAGDRzmV9UFXtSHJxkuckOZDkmqq6ors/urDPMUlen+Ts7r6pqh65rPkAAABWWuYZprOS7O/uG7r7jiSXJ9m9Yp8fSfK27r4pSbr71iXOBwAAcA+Tg6mqvr+q/qCqPlhVJ8zXvaCqnjHxLY5PcvPC8oH5ukWPT/KwqnpvVX2gqs6fOh8AAMBamxRMVfXDSa5McluSJya5/3zTA5Osei/Sam+zyrpesbwzyRlJ/mWS5yb5r1X1+FXm2VNV+6pq32233Tbx4wEAAA7P1DNMP5/kgu7+j0kOLqx/f5LvmfgeB5KcuLB8QpJbVtnnnd395e6+Pcn7kpy+8o26+9Lu3tXdu4477riJHw8AAHB4pgbT4zOLl5W+mOSYie9xTZJTqurkqrp/kucluWLFPm9P8vSq2llVD0zylCQfm/j+AAAAa2rqU/I+neQfJ/nkivVPS3LDlDfo7oNVdWGSq5LsSHJZd19fVRfMt1/S3R+rqncmuTbJXUne1N0fmTgjAADAmpoaTL+T5DVV9YLM7jt6VFWdmeRVSV459cO6e2+SvSvWXbJi+VXz9wUAANhQU4PpV5I8PLN7lu6X5C+T3Jnkt7r7Nes0GwAAwIaaGkzV3T9TVb+U5Lsyu/fpuu7+3PqNBgAAsLEOGUxVtTPJ16rqu+f3E/3l+o8FAACw8Q75lLzuPpjkpswe1AAAAHDUmPpY8V9N8stV9dD1HAYAAGAzmXoP054kpyb5VFXdmOTLixu7+6y1HgwAAGCjTQ2m98xfAAAAR41JwdTdP7fegwAAAGw2U+9hAgAAOOpMOsNUVbcl6dH27n7kmk0EAACwSUy9h+llK5bvl+R7kvzrJK9c04kAAAA2ian3ML1xtfVVdUGS713TiQAAADaJ+3oP07uS/Ju1GAQAAGCzua/B9G+TfG4tBgEAANhspj704Zrc86EPleQ7kzwmyU+uw1wAAAAbbupDH/409wymu5LcluTPuvvaNZ8KAABgE5j60IeL1nsQAACAzWbSPUxV9dGqevgq6x9aVR9d+7EAAAA23tSHPpya1c9GfXuSx63dOAAAAJvHvV6SV1XnLiw+u6q+sLC8I8k/T3LTegwGAACw0Q51D9OfzH/tJL+/YlsnOZDkp9Z6KAAAgM3gUMH0gMweIX5jkjMzezLe3Q52953rNRgAAMBGu9dg6u6vz3989BJmAQAA2FSmfg9TqurBSZ6T5KQk91/c1t2/vsZzAQAAbLhJwVRVu5LszexBDw/N7NK8Ryb5SpJPJRFMAADAtjP1seKvTvKHSY5L8tUkT0vyD5N8KMnPr89oAAAAG2tqMJ2e5DXdfVeSO5P8g+4+kOQ/Jfnl9RoOAABgI00NpoNJ7pr/fGtm9zElyeeTnLjWQwEAAGwGUx/68KEkZyT5f0nel+QXq+qYJOcn+cg6zQYAALChpp5h+oUkn5n//LIkX0vylszuY/rxdZgLAABgwx3yDFNVfVuSv0vy4STp7k8nedY6zwUAALDhppxh6iT/N8kJ6zwLAADApnLIYOruzuzepYev/zgAAACbx9R7mH4uyauq6tT1HAYAAGAzmfqUvN9J8uAk11fVV5N8ZXFjdz9yrQcDAADYaFOD6WXrOgUAAMAmNCmYuvuN6z0IAADAZjP1HqZU1SOq6sKq+s2qesR83ZlVdeL6jQcAALBxJp1hqqrTk/xpktuSPC7Jb2f2RbY/kOSxSZ6/TvMBAABsmKlnmF6d5E3d/cQkX19Y/44kT1/zqQAAADaBqcF0ZpL/vsr6v03ynWs3DgAAwOYxNZi+nuQhq6x/fJLb124cAACAzWNqMF2Z5GVVdfc9T11Vxyd5ZZI/WpfJAAAANtjUYPrZJCck+XSSByT5syQ3JLkjyX9Zn9EAAAA21tTvYfpcVf2zJGcneXJmofXBJHu7+651nA8AAGDDTAqmJJmH0d75CwAAYNs7nC+uPbuq3lVVB+avd1fVOes5HAAAwEaaFExV9eIkVyT5uyS/Mn99OskfV9VPrt94AAAAG2fqJXkXJfnp7r54Yd3rq+qvkrwsyWvXfDIAAIANNvWSvIcmuWqV9e/K6t/PBAAAsOUdzvcw7V5l/e54CAQAALBNTb0k77rMvrj26Umunq97apJnJPn1qvqJu3fs7tev7YgAAAAbY2owvTjJ15I8Zf6629eSLD70oZMIJgAAYFuY+sW1j17vQQAAADabyd/DBAAAcLSZekle5l9S+6wkj8yK0Oru89d4LgAAgA03KZiq6pVJfjbJNZl9eW2v51AAAACbwdQzTD+W5Lzu/l/rOQwAAMBmMvUepq8n+ev1HAQAAGCzmRpMv5Hkp6vKQyIAAICjxtRL8n47yZ8kuamqPpbkG4sbu/vctR4MAABgo00NptcleUaSP42HPgAAAEeJqcH075P8u+5+x3oOAwAAsJlMvSfps0luXM9BAAAANpupwfSKJC+vqm9fz2EAAAA2k6mX5P14kick+buquiHf+tCHs9Z6MAAAgI02NZjeM38BAAAcNSYFU3f/3HoPAgAAsNlM/iLaqrpfVf2rqnpJVT1kvu7Eu38GAADYbiadYaqqxyZ5d5JHJXlgkiuTfDHJzyR5QGb3OAEAAGwrU88w/VaS/53kEUm+urD+j5I8e62HAgAA2AymPvThaUme1t3fqKrF9Z9M8pg1nwoAAGATmHqGacf8tdIJSb60duMAAABsHlOD6d1JXryw3FX1oCQvT/LONZ8KAABgE5h6Sd7PJnlvVV2b5NuTvCXJ4zM7u/T8dZoNAABgQ039HqabqupJmcXRGZmdmfqfSX63u12SBwAAbEv3GkxVdVmSl3T3l7r775O8YTljAQAAbLxD3cP0HzL7niUAAICjzqGCqQ6x/bBU1dlV9fGq2l9VF93LfmdW1Z1V9UNr+fkAAACHY8pT8notPqiqdiS5OMk5SU5Lcl5VnTbY79eSXLUWnwsAAHCkpgTTp+dne4aviZ91VpL93X1Dd9+R5PIku1fZ78VJ/jDJrRPfFwAAYF1MeUreniSfX4PPOj7JzQvLB5I8ZXGHqjo+yQ8m+f4kZ67BZwIAAByxKcF0ZXevxdme1e6HWnm532uSvLS776wa3z5VVXsyC7mcdNJJazAaAADAtzpUMK3J/UtzB5KcuLB8QpJbVuyzK8nl81g6Nsm5VXWwu//4HkN1X5rk0iTZtWvXWs4IAADwTYcKprV8St41SU6pqpOT/G2S5yX5kcUduvvkb35w1ZuT/MnKWAIAAFiWew2m7p7yUIhJuvtgVV2Y2dPvdiS5rLuvr6oL5tsvWavPAgAAWAtT7mFaM929N8neFetWDaXufsEyZgIAABhZszNIAAAA241gAgAAGBBMAAAAA4IJAABgQDABAAAMCCYAAIABwQQAADAgmAAAAAYEEwAAwIBgAgAAGBBMAAAAA4IJAABgQDABAAAMCCYAAIABwQQAADAgmAAAAAYEEwAAwIBgAgAAGBBMAAAAA4IJAABgQDABAAAMCCYAAIABwQQAADAgmAAAAAYEEwAAwIBgAgAAGBBMAAAAA4IJAABgQDABAAAMCCYAAIABwQQAADAgmAAAAAYEEwAAwIBgAgAAGBBMAAAAA4IJAABgQDABAAAMCCYAAIABwQQAADAgmAAAAAYEEwAAwIBgAgAAGBBMAAAAA4IJAABgQDABAAAMCCYAAIABwQQAADAgmAAAAAYEEwAAwIBgAgAAGBBMAAAAA4IJAABgQDABAAAMCCYAAIABwQQAADAgmAAAAAYEEwAAwIBgAgAAGBBMAAAAA4IJAABgQDABAAAMCCYAAIABwQQAADAgmAAAAAYEEwAAwIBgAgAAGBBMAAAAA4IJAABgQDABAAAMCCYAAIABwQQAADAgmAAAAAYEEwAAwIBgAgAAGBBMAAAAA4IJAABgQDABAAAMCCYAAICBpQZTVZ1dVR+vqv1VddEq23+0qq6dv95fVacvcz4AAIBFSwumqtqR5OIk5yQ5Lcl5VXXait1uTPKM7n5SklckuXRZ8wEAAKy0zDNMZyXZ3903dPcdSS5Psntxh+5+f3d/br54dZITljgfAADAPSwzmI5PcvPC8oH5upEfS/KOdZ0IAADgXuxc4mfVKut61R2rnpVZMH3fYPueJHuS5KSTTlqr+QAAAO5hmWeYDiQ5cWH5hCS3rNypqp6U5E1Jdnf3Z1Z7o+6+tLt3dfeu4447bl2GBQAAWGYwXZPklKo6uarun+R5Sa5Y3KGqTkrytiTP7+5PLHE2AACAb7G0S/K6+2BVXZjkqiQ7klzW3ddX1QXz7Zck+YUkj0jy+qpKkoPdvWtZMwIAACyq7lVvI9oydu3a1fv27dvoMQAAgE2qqj5wpCdilvrFtQAAAFuJYAIAABgQTAAAAAOCCQAAYEAwAQAADAgmAACAAcEEAAAwIJgAAAAGBBMAAMCAYAIAABgQTAAAAAOCCQAAYEAwAQAADAgmAACAAcEEAAAwIJgAAAAGBBMAAMCAYAIAABgQTAAAAAOCCQAAYEAwAQAADAgmAACAAcEEAAAwIJgAAAAGBBMAAMCAYAIAABgQTAAAAAOCCQAAYEAwAQAADAgmAACAAcEEAAAwIJgAAAAGBBMAAMCAYAIAABgQTAAAAAOCCQAAYEAwAQAADAgmAACAAcEEAAAwIJgAAAAGBBMAAMCAYAIAABgQTAAAAAOCCQAAYEAwAQAADAgmAACAAcEEAAAwIJgAAAAGBBMAAMCAYAIAABgQTAAAAAOCCQAAYEAwAQAADAgmAACAAcEEAAAwIJgAAAAGBBMAAMCAYAIAABgQTAAAAAOCCQAAYEAwAQAADAgmAACAAcEEAAAwIJgAAAAGBBMAAMCAYAIAABgQTAAAAAOCCQAAYEAwAQAADAgmAACAAcEEAAAwIJgAAAAGBBMAAMCAYAIAABgQTAAAAAOCCQAAYEAwAQAADAgmAACAgaUGU1WdXVUfr6r9VXXRKturql47335tVT15mfMBAAAsWlowVdWOJBcnOSfJaUnOq6rTVux2TpJT5q89Sd6wrPkAAABWWuYZprOS7O/uG7r7jiSXJ9m9Yp/dSd7SM1cnOaaqHr3EGQEAAL5pmcF0fJKbF5YPzNcd7j4AAABLsXOJn1WrrOsj2CdVtSezS/aS5OtV9ZH7OBtMdWyS2zd6CI4qjjmWyfHGMjneWKYnHOlvXGYwHUhy4sLyCUluOYJ90t2XJrk0SapqX3fvWttRYXWON5bNMccyOd5YJscby1RV+4709y7zkrxrkpxSVSdX1f2TPC/JFSv2uSLJ+fOn5T01yRe6+1NLnBEAAOCblnaGqbsPVtWFSa5KsiPJZd19fVVdMN9+SZK9Sc5Nsj/JV5K8cFnzAQAArLTMS/LS3Xszi6LFdZcs/NxJXnSYb3vpGowGUzneWDbHHMvkeGOZHG8s0xEfbzVrFAAAAFZa5j1MAAAAW8qWCaaqOruqPl5V+6vqolW2V1W9dr792qp68kbMyfYw4Xj70flxdm1Vvb+qTt+IOdkeDnW8Lex3ZlXdWVU/tMz52H6mHHNV9cyq+nBVXV9Vf77sGdk+Jvyb+tCqurKq/np+vLmHnSNWVZdV1a2jrx06kmbYEsFUVTuSXJzknCSnJTmvqk5bsds5SU6Zv/YkecNSh2TbmHi83ZjkGd39pCSviOuwOUITj7e79/u1zB6cA0dsyjFXVcckeX2SH+juf5Lkh5c+KNvCxL/jXpTko919epJnJnn1/InKcCTenOTse9l+2M2wJYIpyVlJ9nf3Dd19R5LLk+xesc/uJG/pmauTHFNVj172oGwLhzzeuvv93f25+eLVmX1nGByJKX+/JcmLk/xhkluXORzb0pRj7keSvK27b0qS7nbccaSmHG+d5MFVVUm+I8lnkxxc7phsF939vsyOoZHDboatEkzHJ7l5YfnAfN3h7gNTHO6x9GNJ3rGuE7GdHfJ4q6rjk/xgkksC992Uv+Men+RhVfXeqvpAVZ2/tOnYbqYcb69L8sQktyS5LslLuvuu5YzHUeiwm2GpjxW/D2qVdSsf7zdlH5hi8rFUVc/KLJi+b10nYjubcry9JslLu/vO2X/Awn0y5ZjbmeSMJM9O8oAkf1VVV3f3J9Z7OLadKcfbc5N8OMn3J3lckndX1V909xfXeziOSofdDFslmA4kOXFh+YTM/hficPeBKSYdS1X1pCRvSnJOd39mSbOx/Uw53nYluXweS8cmObeqDnb3Hy9nRLaZqf+m3t7dX07y5ap6X5LTkwgmDteU4+2FSV45/z7O/VV1Y5JTk/yf5YzIUeawm2GrXJJ3TZJTqurk+U2Az0tyxYp9rkhy/vzJF09N8oXu/tSyB2VbOOTxVlUnJXlbkuf7H1fuo0Meb919cnc/trsfm+QPkvyEWOI+mPJv6tuTPL2qdlbVA5M8JcnHljwn28OU4+2mzM5mpqoeleQJSW5Y6pQcTQ67GbbEGabuPlhVF2b2dKgdSS7r7uur6oL59kuS7E1ybpL9Sb6S2f9WwGGbeLz9QpJHJHn9/H/9D3b3ro2ama1r4vEGa2bKMdfdH6uqdya5NsldSd7U3as+ohfuzcS/416R5M1VdV1ml0u9tLtv37Ch2dKq6q2ZPW3x2Ko6kOTlSe6XHHkz1OzsJwAAACttlUvyAAAAlk4wAQAADAgmAACAAcEEAAAwIJgAAAAGBBMAAMCAYAJg06mq36uqD8+/6HJx/bOr6htV9b0bNRsARxfBBMBmdGFmXw798rtXVNVDklyW5FXd/f71+NCVgQYAggmATae7P5/Zt6//56o6a776N5N8LskvJklV/dOqekdVfamqbq2q36+qR939HlX1lKp6d1XdXlVfqKq/WHivVNXOquqquqCq3l5VX07yS0v7QwKwJQgmADal7n5PkjckeUtV/VCSH03y/O6+o6qOT/LnST6U5Mwkz0lyTJI/qqqav8WDk/xukqcneWqS65K8o6oetuKj/luStyf5riSXrO+fCoCtprp7o2cAgFVV1QMyi6JTklzU3a+ar/+VJGd093MX9j02yW3z9R9c5b0qya1JXtzdl1fVziTfSPKa7v7p9f/TALAVOcMEwKbV3V9N8htJvp7k1QubzkjyrKr6+7tfSf5mvu1xSVJVj6qqS6vqE1X1hSRfyuy+qJNWfMy+9fwzALC17dzoAQDgEA4muau771pY921Jrkzy0lX2//T819/L7DK9n0ryycyi671JVj7Y4ctrOSwA24tgAmAr+mCS3Un+prsPDvb5viR7untvklTVo5N855LmA2CbcEkeAFvRbyc5Nslbq+qsqvpHVfWcqnrT/L6nJPlEkudX1RPnT8e7PLOzTAAwmWACYMvp7gNJnpZkR5Krklyf5HVJvpLZgxyS5AWZXZL3oST/I8kbk9y87FkB2No8JQ8AAGDAGSYAAIABwQQAADAgmAAAAAYEEwAAwIBgAgAAGBBMAAAAA4IJAABgQDABAAAMCCYAAICB/w/ubKFmrqWr6gAAAABJRU5ErkJggg==\n",
+      "text/plain": [
+       "<Figure size 1008x576 with 1 Axes>"
+      ]
+     },
+     "metadata": {
+      "needs_background": "light"
+     },
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "plt.figure(figsize=(14, 8))\n",
+    "plt.xlabel(\"Year\", size=14)\n",
+    "plt.ylabel(\"Temperature\", size=14)\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "NameError",
+     "evalue": "name 'x' is not defined",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-6-08d437687b31>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[1;32m      1\u001b[0m city_temperature = pd.DataFrame({\n\u001b[0;32m----> 2\u001b[0;31m     \u001b[0;34m'Year'\u001b[0m\u001b[0;34m:\u001b[0m \u001b[0mx\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      3\u001b[0m     \u001b[0;34m'Temperature'\u001b[0m\u001b[0;34m:\u001b[0m \u001b[0my\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      4\u001b[0m     \u001b[0;34m'Colors'\u001b[0m\u001b[0;34m:\u001b[0m \u001b[0mcolors\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      5\u001b[0m     \"bubble_size\":area})\n",
+      "\u001b[0;31mNameError\u001b[0m: name 'x' is not defined"
+     ]
+    }
+   ],
+   "source": [
+    "city_temperature = pd.DataFrame({\n",
+    "    'Year': x,\n",
+    "    'Temperature': y,\n",
+    "    'Colors': colors,\n",
+    "    \"bubble_size\":area})"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def createcity_temperature(city_temperature='592/city_temperature.xls', heat_mortality='592/USA_Heat_Related_Mortality_1968_2016.csv'):\n",
+    "    Temp=pd.read_csv(city_temperature)\n",
+    "    HeatMortality=pd.read_csv(heat_mortality)\n",
+    "    \n",
+    "    Temp['publisher'] = 'Temperature'\n",
+    "    HeatMortality['publisher'] = 'Heat Mortality'\n",
+    "    \n",
+    "    # rename some columns\n",
+    "    HeatMortality.rename(columns={'Year': 'YEAR'}, inplace=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "plt.scatter('Year', 'Temperature', data=heat_mortality)\n",
+    "plt.xlabel(\"Year\", size=16)\n",
+    "plt.ylabel(\"Temperature\", size=16)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "plt.scatter('Year', 'Temperature', \n",
+    "             s='bubble_size',\n",
+    "             alpha=0.5, \n",
+    "             data=city_temperature)\n",
+    "plt.xlabel(\"Year\", size=16)\n",
+    "plt.ylabel(\"Temperature\", size=16)\n",
+    "plt.title(\"Heat Related Mortality Over Time with the Inclusion of Temperature\", size=18)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "plt.scatter('Year', 'Temperature',\n",
+    "             s='bubble_size',\n",
+    "             c='Colors',\n",
+    "             alpha=0.5, data=df)\n",
+    "plt.xlabel(\"Year\", size=16)\n",
+    "plt.ylabel(\"Temperature\", size=16)\n",
+    "plt.title(\"Heat Related Mortality Over Time with the Inclusion of Temperature\", size=18)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "A circle plot where the x-axis is the year, the y-axis is the temperature, \n",
+    "and the size of the circle is the heat mortality rate. This will demonstrate changes in heat related mortality over time with the inclusion of temperature. "
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.3"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
